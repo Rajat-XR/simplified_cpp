@@ -7,6 +7,7 @@
 #include <limits>
 #include <type_traits>
 #include <functional>
+#include <cctype>
 
 using namespace std;
 
@@ -137,8 +138,8 @@ string slice(const string &str, int start, int stop, int step = 1)
     // Handle out-of-bounds for start and stop
     if (start < 0)
         start = 0;
-    if (stop > str.size())
-        stop = str.size();
+    if (stop >= str.size())    // Changed from '>' to '>=' to include the stop index
+        stop = str.size() - 1; // Set to the last valid index
 
     // Include the start index character and include the stop index character
     for (int i = start; (step > 0 ? i <= stop : i >= stop); i += step)
